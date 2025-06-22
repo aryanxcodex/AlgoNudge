@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ApiKeyScreen from "./ApiKeyScreen";
 import HintScreen from "./HintScreen";
 import { Toaster, toast } from "sonner";
-// import { getGeminiHint } from "../api";
+import { getGeminiHint } from "./api";
 
 const Popup = () => {
   const [apiKey, setApiKey] = useState("");
@@ -80,6 +80,8 @@ const Popup = () => {
             onGetHint={onGetHint}
             setUserPrompt={setUserPrompt}
             userPrompt={userPrompt}
+            setApiKey={setApiKey}
+            saveKey={saveKey}
           />
         ) : (
           <ApiKeyScreen

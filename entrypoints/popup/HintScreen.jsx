@@ -1,15 +1,42 @@
 import { useState } from "react";
-import { Loader2, Sparkles, Brain, MessageSquare, Zap } from "lucide-react";
+import {
+  Loader2,
+  Sparkles,
+  Brain,
+  MessageSquare,
+  Zap,
+  KeyRound,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
-const HintScreen = ({ onGetHint, hint, loading, setUserPrompt, userPrompt }) => {
+const HintScreen = ({
+  onGetHint,
+  hint,
+  loading,
+  userPrompt,
+  setUserPrompt,
+  apiKey,
+  setApiKey,
+  saveKey,
+}) => {
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
 
   const handleClick = () => {
     onGetHint(userPrompt);
   };
 
+  const handleApiKeySave = () => {
+    if (apiKey.trim() === "") {
+      return toast.error("API key cannot be empty!");
+    }
+    saveKey();
+    setShowApiKeyInput(false);
+  };
+
   return (
     <div className="w-full max-w-sm bg-gray-900 text-white">
-      {/* Header Section */}
+      {/* Header */}
       <div className="px-4 py-3 border-b border-gray-800">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-700 transform transition-transform duration-200 hover:scale-110">
@@ -22,9 +49,9 @@ const HintScreen = ({ onGetHint, hint, loading, setUserPrompt, userPrompt }) => 
         </div>
       </div>
 
-      {/* Content Section */}
+      {/* Content */}
       <div className="p-4 space-y-4">
-        {/* Prompt Input */}
+        {/* Prompt input */}
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <MessageSquare className="w-4 h-4 text-blue-800" />
@@ -33,26 +60,60 @@ const HintScreen = ({ onGetHint, hint, loading, setUserPrompt, userPrompt }) => 
             </label>
           </div>
 
-          <div className="relative group">
-            <textarea
-              value={userPrompt}
-              onChange={(e) => setUserPrompt(e.target.value)}
-              rows={3}
-              className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 group-hover:border-gray-600"
-              placeholder="Describe what kind of hint you need..."
-            />
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
+          <textarea
+            value={userPrompt}
+            onChange={(e) => setUserPrompt(e.target.value)}
+            rows={3}
+            className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            placeholder="Describe what kind of hint you need..."
+          />
+        </div>
+
+        {/* API Key Toggle */}
+        <div className="space-y-2 border border-gray-800 p-3 rounded-md bg-gray-800">
+          <div
+            className="flex justify-between items-center cursor-pointer select-none"
+            onClick={() => setShowApiKeyInput((prev) => !prev)}
+          >
+            <div className="flex items-center gap-2">
+              <KeyRound className="w-4 h-4 text-yellow-400" />
+              <span className="text-sm font-medium text-gray-300">
+                Change API Key
+              </span>
+            </div>
+            {showApiKeyInput ? (
+              <ChevronUp className="w-4 h-4 text-gray-400" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-400" />
+            )}
           </div>
+
+          {showApiKeyInput && (
+            <div className="mt-3 space-y-2">
+              <input
+                type="text"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                className="w-full rounded-md bg-gray-900 border border-gray-700 text-white placeholder-gray-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your Gemini API key"
+              />
+              <button
+                onClick={handleApiKeySave}
+                className="w-full text-sm font-semibold py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition"
+              >
+                Save API Key
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Action Button */}
         <button
           onClick={handleClick}
           disabled={loading}
-          className="cursor-pointer w-full rounded-lg bg-blue-900 hover:from-blue-300 hover:to-blue-900 text-white text-sm font-medium py-2.5 px-4 shadow-lg transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
+          className="cursor-pointer w-full rounded-lg bg-blue-900 hover:from-blue-300 hover:to-blue-900 text-white text-sm font-medium py-2.5 px-4 shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-          <div className="relative flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             {loading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -60,7 +121,7 @@ const HintScreen = ({ onGetHint, hint, loading, setUserPrompt, userPrompt }) => 
               </>
             ) : (
               <>
-                <Zap className="w-4 h-4 transform transition-transform duration-200 group-hover:rotate-12" />
+                <Zap className="w-4 h-4" />
                 <span>Get Hint</span>
               </>
             )}
@@ -77,7 +138,7 @@ const HintScreen = ({ onGetHint, hint, loading, setUserPrompt, userPrompt }) => 
           </div>
         )}
 
-        {/* Hint Output */}
+        {/* Hint Display */}
         {hint && !loading && (
           <div className="space-y-2 animate-in slide-in-from-bottom-2 duration-300">
             <div className="flex items-center gap-2">
@@ -86,16 +147,10 @@ const HintScreen = ({ onGetHint, hint, loading, setUserPrompt, userPrompt }) => 
                 AI Response
               </span>
             </div>
-
-            <div className="relative group">
-              <div className="rounded-lg bg-gray-800 border border-gray-700 p-3 hover:border-gray-600 transition-colors duration-200">
-                <div className="absolute top-2 right-2">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                </div>
-                <pre className="text-sm text-gray-200 whitespace-pre-wrap leading-relaxed font-mono">
-                  {hint}
-                </pre>
-              </div>
+            <div className="rounded-lg bg-gray-800 border border-gray-700 p-3 hover:border-gray-600 transition-colors duration-200">
+              <pre className="text-sm text-gray-200 whitespace-pre-wrap leading-relaxed font-mono">
+                {hint}
+              </pre>
             </div>
           </div>
         )}
