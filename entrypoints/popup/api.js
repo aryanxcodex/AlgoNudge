@@ -1,4 +1,5 @@
 export async function getGeminiHint({ code, prompt, title, description, apiKey }) {
+    console.log(apiKey);
   try {
     const res = await fetch("http://localhost:3000/hint", {
       method: "POST",

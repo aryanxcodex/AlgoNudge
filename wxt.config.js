@@ -15,4 +15,7 @@ export default defineConfig({
     ],
     permissions: ["storage", "tabs"],
   },
+  devServer: {
+    port: 5175,
+  },
 });
