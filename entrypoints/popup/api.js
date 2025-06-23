@@ -1,7 +1,9 @@
+import { BASE_URL } from "./constants";
+
 export async function getGeminiHint({ code, prompt, title, description, apiKey }) {
     console.log(apiKey);
   try {
-    const res = await fetch("http://localhost:3000/hint", {
+    const res = await fetch(`${BASE_URL}/hint`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
