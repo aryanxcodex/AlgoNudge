@@ -15,7 +15,7 @@ const Popup = () => {
 
   const loadApiKeyFromStorage = () => {
     chrome.storage.local.get(["GEMINI_API_KEY"], (result) => {
-      console.log("[useEffect] Fetched key:", result.GEMINI_API_KEY);
+      // console.log("[useEffect] Fetched key:", result.GEMINI_API_KEY);
       if (result.GEMINI_API_KEY) {
         setApiKey(result.GEMINI_API_KEY);
         setShowHintScreen(true);
@@ -56,7 +56,7 @@ const Popup = () => {
             return;
           }
           // loadApiKeyFromStorage();
-          console.log(apiKey);
+          // console.log(apiKey);
           const prompt =
             userPrompt ||
             "Give a subtle hint on what's wrong with this LeetCode solution.";
@@ -73,7 +73,7 @@ const Popup = () => {
         }
       );
     } catch (err) {
-      console.error("Hint generation failed:", err);
+      // console.error("Hint generation failed:", err);
       toast.error("Something went wrong.");
       setHint("Error generating hint.");
       setLoading(false);

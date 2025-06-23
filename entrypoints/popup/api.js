@@ -1,7 +1,7 @@
 import { BASE_URL } from "./constants";
 
 export async function getGeminiHint({ code, prompt, title, description, apiKey }) {
-    console.log(apiKey);
+    // console.log(apiKey);
   try {
     const res = await fetch(`${BASE_URL}/hint`, {
       method: "POST",
@@ -25,7 +25,7 @@ export async function getGeminiHint({ code, prompt, title, description, apiKey }
     const data = await res.json();
     return data.hint || "No hint generated.";
   } catch (error) {
-    console.error("Error fetching Gemini hint:", error);
+    // console.error("Error fetching Gemini hint:", error);
     return "Failed to generate hint. Please try again.";
   }
 }

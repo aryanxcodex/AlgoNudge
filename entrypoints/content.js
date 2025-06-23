@@ -1,7 +1,6 @@
 export default defineContentScript({
   matches: ["*://leetcode.com/problems/*"],
   main() {
-    console.log("📌 LeetBuddy content script loaded");
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (message.type === "GET_LEETCODE_CODE") {
@@ -31,7 +30,7 @@ export default defineContentScript({
 
           sendResponse({ code, title, description });
         } catch (err) {
-          console.error("❌ Failed to scrape LeetCode content:", err);
+          // console.error("❌ Failed to scrape LeetCode content:", err);
           sendResponse({ error: "Failed to scrape page data." });
         }
         return true; // Allow async response
