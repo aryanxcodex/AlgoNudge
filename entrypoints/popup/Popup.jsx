@@ -36,7 +36,7 @@ const Popup = () => {
   const onGetHint = async () => {
     setLoading(true);
     setHint("Fetching code...");
-    console.log("[onGetHint] Current apiKey before fetch:", apiKey);
+    // console.log("[onGetHint] Current apiKey before fetch:", apiKey);
 
     try {
       const [tab] = await chrome.tabs.query({

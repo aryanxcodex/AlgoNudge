@@ -160,7 +160,7 @@ const HintScreen = ({
       <div className="px-4 py-2 border-t border-gray-800 bg-gray-800/50">
         <div className="flex items-center justify-center gap-1">
           <div className="w-1 h-1 bg-purple-400 rounded-full animate-pulse" />
-          <span className="text-xs text-gray-500">Powered by AI</span>
+          <span className="text-xs text-gray-500">Powered by Gemini</span>
           <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse delay-500" />
         </div>
       </div>
