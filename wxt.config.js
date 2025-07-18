@@ -1,4 +1,4 @@
-import { defineConfig } from "wxt";
+import { defineConfig, defineWebExtConfig } from "wxt";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -18,4 +18,9 @@ export default defineConfig({
   devServer: {
     port: 5175,
   },
+  webExt: defineWebExtConfig({
+    binaries: {
+      firefox: "/home/aryan/firefox/firefox",
+    },
+  }),
 });

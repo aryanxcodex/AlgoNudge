@@ -44,7 +44,7 @@ const HintScreen = ({
           </div>
           <div>
             <h2 className="text-lg font-semibold text-white">AlgoNudge</h2>
-            <p className="text-xs text-gray-400">Smart debugging assistant</p>
+            <p className="text-xs text-gray-400">Your AI pair programmer</p>
           </div>
         </div>
       </div>
