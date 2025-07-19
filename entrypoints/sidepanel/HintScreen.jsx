@@ -9,6 +9,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { toast } from "sonner";
 
 const HintScreen = ({
   onGetHint,
@@ -22,9 +23,7 @@ const HintScreen = ({
 }) => {
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
 
-  const handleClick = () => {
-    onGetHint(userPrompt);
-  };
+  const handleClick = () => onGetHint(userPrompt);
 
   const handleApiKeySave = () => {
     if (apiKey.trim() === "") {
@@ -35,9 +34,9 @@ const HintScreen = ({
   };
 
   return (
-    <div className="w-full max-w-sm bg-gray-900 text-white">
+    <div className="w-full text-white">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-gray-800">
+      <div className="px-4 py-3 border-b border-gray-800 bg-gray-900">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-700 transform transition-transform duration-200 hover:scale-110">
             <Brain className="w-4 h-4 text-white" />
@@ -50,16 +49,13 @@ const HintScreen = ({
       </div>
 
       {/* Content */}
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 bg-gray-900">
         {/* Prompt input */}
         <div className="space-y-2">
-          <div className="flex items-center gap-2">
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-300">
             <MessageSquare className="w-4 h-4 text-blue-800" />
-            <label className="text-sm font-medium text-gray-300">
-              Your Prompt
-            </label>
-          </div>
-
+            Your Prompt
+          </label>
           <textarea
             value={userPrompt}
             onChange={(e) => setUserPrompt(e.target.value)}
@@ -111,7 +107,7 @@ const HintScreen = ({
         <button
           onClick={handleClick}
           disabled={loading}
-          className="cursor-pointer w-full rounded-lg bg-blue-900 hover:from-blue-300 hover:to-blue-900 text-white text-sm font-medium py-2.5 px-4 shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full rounded-lg bg-blue-900 hover:from-blue-300 hover:to-blue-900 text-white text-sm font-medium py-2.5 px-4 shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <div className="flex items-center justify-center gap-2">
             {loading ? (
@@ -147,7 +143,7 @@ const HintScreen = ({
                 AI Response
               </span>
             </div>
-            <div className="rounded-lg bg-gray-800 border border-gray-700 p-3 hover:border-gray-600 transition-colors duration-200">
+            <div className="rounded-lg bg-gray-800 border border-gray-700 p-3 hover:border-gray-600 transition-colors duration-200 max-h-[50vh] overflow-y-auto">
               <pre className="text-sm text-gray-200 whitespace-pre-wrap leading-relaxed font-mono">
                 {hint}
               </pre>

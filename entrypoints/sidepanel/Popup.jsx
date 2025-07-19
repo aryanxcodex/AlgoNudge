@@ -13,18 +13,13 @@ const Popup = () => {
     "Give a subtle hint on what's wrong with this LeetCode solution."
   );
 
-  const loadApiKeyFromStorage = () => {
+  useEffect(() => {
     chrome.storage.local.get(["GEMINI_API_KEY"], (result) => {
-      // console.log("[useEffect] Fetched key:", result.GEMINI_API_KEY);
       if (result.GEMINI_API_KEY) {
         setApiKey(result.GEMINI_API_KEY);
         setShowHintScreen(true);
       }
     });
-  };
-
-  useEffect(() => {
-    loadApiKeyFromStorage();
   }, []);
 
   const saveKey = () => {
@@ -36,7 +31,6 @@ const Popup = () => {
   const onGetHint = async () => {
     setLoading(true);
     setHint("Fetching code...");
-    // console.log("[onGetHint] Current apiKey before fetch:", apiKey);
 
     try {
       const [tab] = await chrome.tabs.query({
@@ -48,18 +42,17 @@ const Popup = () => {
         tab.id,
         { type: "GET_LEETCODE_CODE" },
         async (response) => {
-          // console.log(response);
           if (!response || response.error) {
             toast.error("Failed to get code from page.");
             setHint("Could not get code.");
             setLoading(false);
             return;
           }
-          // loadApiKeyFromStorage();
-          // console.log(apiKey);
+
           const prompt =
             userPrompt ||
             "Give a subtle hint on what's wrong with this LeetCode solution.";
+
           const result = await getGeminiHint({
             code: response.code,
             prompt,
@@ -73,7 +66,6 @@ const Popup = () => {
         }
       );
     } catch (err) {
-      // console.error("Hint generation failed:", err);
       toast.error("Something went wrong.");
       setHint("Error generating hint.");
       setLoading(false);
@@ -83,7 +75,7 @@ const Popup = () => {
   return (
     <>
       <Toaster position="bottom-center" richColors />
-      <div className="w-[360px] min-h-[400px] p-4 bg-white text-gray-900 dark:bg-[#1e1e1e] dark:text-gray-100 font-sans text-sm rounded-md shadow-md space-y-4 overflow-auto">
+      <div className="w-full h-screen overflow-y-auto px-4 py-6 bg-white dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-100 font-sans text-sm">
         {showHintScreen ? (
           <HintScreen
             apiKey={apiKey}

@@ -28,7 +28,7 @@ const ApiKeyScreen = ({ apiKey, setApiKey, saveKey }) => {
       animate="show"
       variants={fadeIn}
       transition={{ duration: 0.4 }}
-      className="p-5 min-w-[300px] max-w-[380px] bg-white dark:bg-[#1c1c1e] rounded-xl shadow-md flex flex-col gap-6"
+      className="w-full bg-white dark:bg-[#1c1c1e] rounded-xl shadow-md flex flex-col gap-6 p-6"
     >
       {/* Extension Title */}
       <div className="flex items-center gap-2">
@@ -41,8 +41,8 @@ const ApiKeyScreen = ({ apiKey, setApiKey, saveKey }) => {
       <hr className="border-t border-gray-200 dark:border-gray-700" />
 
       {/* Prompt Header */}
-      <div className="flex items-center gap-3">
-        <FaKey className="text-blue-500 text-lg" />
+      <div className="flex items-start gap-3">
+        <FaKey className="text-blue-500 text-lg mt-1" />
         <div>
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
             Set up Gemini API

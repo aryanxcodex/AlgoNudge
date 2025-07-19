@@ -7,13 +7,34 @@ export default defineConfig({
     plugins: [react(), tailwindcss()],
   }),
   manifest: {
+    manifest_version: 3,
+    action: {
+      default_icon: {
+        16: "icon/16.png",
+        32: "icon/32.png",
+        48: "icon/48.png",
+        128: "icon/128.png",
+      },
+    },
+    permissions: ["storage", "tabs"],
+    background: {
+      service_worker: "/background.js",
+    },
+    side_panel: {
+      default_path: "/sidepanel/index.html",
+    },
     web_accessible_resources: [
       {
         matches: ["*://leetcode.com/*"],
         resources: ["icon/*.png"],
       },
     ],
-    permissions: ["storage", "tabs"],
+  },
+  sidePanel: {
+    entry: "/sidepanel/index.html",
+  },
+  background: {
+    entry: "/background/index.js",
   },
   devServer: {
     port: 5175,
@@ -22,5 +43,6 @@ export default defineConfig({
     binaries: {
       firefox: "/home/aryan/firefox/firefox",
     },
+    chromiumArgs: ["--user-data-dir=./.wxt/chrome-data"],
   }),
 });
