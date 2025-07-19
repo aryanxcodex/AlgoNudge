@@ -1,7 +1,6 @@
 export default defineContentScript({
   matches: ["*://leetcode.com/problems/*"],
   main() {
-
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (message.type === "GET_LEETCODE_CODE") {
         try {

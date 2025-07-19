@@ -32,7 +32,6 @@ const MainScreen = ({ apiKey, setApiKey, saveKey }) => {
             setLoading(false);
             return;
           }
-
           const prompt =
             userPrompt ||
             "Give a subtle hint on what's wrong with this LeetCode solution.";
