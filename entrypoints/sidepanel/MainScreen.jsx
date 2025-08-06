@@ -3,6 +3,7 @@ import ApiKeyScreen from "./ApiKeyScreen";
 import HintScreen from "./HintScreen";
 import { Toaster, toast } from "sonner";
 import { getGeminiHint } from "./api";
+import Resources from "./Resources";
 
 const MainScreen = ({ apiKey, setApiKey, saveKey }) => {
   const [hint, setHint] = useState("");
@@ -93,7 +94,7 @@ const MainScreen = ({ apiKey, setApiKey, saveKey }) => {
           saveKey={saveKey}
         />
       ) : (
-        <div className="p-4">Resources tab content will go here</div>
+        <Resources />
       )}
     </div>
   );
